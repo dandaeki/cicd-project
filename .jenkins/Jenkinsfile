@@ -8,8 +8,8 @@ pipeline {
         }
     }
     environment {
-        GC = credentials('github-spring-cicd') //생성하세여
-        GIT_REPO = 'spring-cicd'
+        GC = credentials('github-cicd-project') //생성하세여
+        GIT_REPO = 'cicd-project'
         GIT_USERNAME = 'dandaeki'
         TAG_VERSION = 'v1.0.0'
     }
