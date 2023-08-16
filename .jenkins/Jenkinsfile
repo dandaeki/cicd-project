@@ -11,7 +11,7 @@ pipeline {
         GC = credentials('github-cicd-project') //생성하세여
         GIT_REPO = 'cicd-project'
         GIT_USERNAME = 'dandaeki'
-        TAG_VERSION = 'v1.1.0'
+        TAG_VERSION = 'v1.2.0'
     }
     triggers {
         githubPush()
