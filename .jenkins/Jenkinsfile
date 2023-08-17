@@ -38,7 +38,7 @@ pipeline {
                                       "body":"Description of the release",
                                       "draft":false,
                                       "prerelease":false,
-                                      "generate_release_notes":false,
+                                      "generate_release_notes":false
                                     }'
                     """, returnStdout: true)
 
