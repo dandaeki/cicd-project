@@ -11,7 +11,7 @@ pipeline {
         GC = credentials('github-cicd-project') //생성하세여
         GIT_REPO = 'cicd-project'
         GIT_USERNAME = 'dandaeki'
-        TAG_VERSION = 'v1.3.0'
+        TAG_VERSION = 'v1.0.0'
     }
     triggers {
         githubPush()
@@ -38,7 +38,7 @@ pipeline {
                                       "body":"Description of the release",
                                       "draft":false,
                                       "prerelease":false,
-                                      "generate_release_notes":false
+                                      "generate_release_notes":false,
                                     }'
                     """, returnStdout: true)
 
