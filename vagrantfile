@@ -13,25 +13,40 @@ Vagrant.configure("2") do |config|
         ctrl.vm.network "private_network", ip: "192.168.10.11"
     end
 
-    config.vm.define "wn1" do |wn1|
-        wn1.vm.hostname = "kube-worker-node1"
-        wn1.vm.provider "virtualbox" do |vb|
-            vb.name = "kube-worker-node1"
+    config.vm.define "docker-op" do |dockerop|
+        dockerop.vm.hostname = "docker-operator"
+        dockerop.vm.provider "virtualbox" do |vb|
+            vb.name = "docker-operator"
             vb.cpus = 4
             vb.memory = 4096
         end
-        wn1.vm.network "private_network", ip: "192.168.10.12"
+        dockerop.vm.network "private_network", ip: "192.168.10.12"
+        dockerop.vm.network "public_network"
+        dockerop.vm.provision "shell", inline: <<-SCRIPT
+        sudo apt-get update -y
+          sudo apt-get install -y ca-certificates curl gnupg
+          sudo install -m 0755 -d /etc/apt/keyrings
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+          sudo chmod a+r /etc/apt/keyrings/docker.gpg
+          echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+           "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          sudo apt-get update 
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+          sudo usermod -a -G docker vagrant
+          docker login -u dandaeki --password-stdin < /vagrant/env/docker_token
+        SCRIPT
     end
 
-    config.vm.define "wn2" do |wn2|
-        wn2.vm.hostname = "kube-worker-node2"
-        wn2.vm.provider "virtualbox" do |vb|
-            vb.name = "kube-worker-node2"
-            vb.cpus = 4
-            vb.memory = 4096
+    config.vm.define "jenkins" do |jenkins|
+        jenkins.vm.hostname = "jenkins-server"
+        jenkins.vm.provider "virtualbox" do |vb|
+            vb.name = "jenkins"
+            vb.cpus = 2
+            vb.memory = 2048
         end
-        wn2.vm.network "private_network", ip: "192.168.10.13"
+        jenkins.vm.network "private_network", ip: "192.168.33.10"
     end
+
     config.vm.define "dock" do |dock|
         dock.vm.hostname = "docker-registry"
         dock.vm.provider "virtualbox" do |vb|
@@ -39,7 +54,7 @@ Vagrant.configure("2") do |config|
           vb.cpus = 2
           vb.memory = 4096
         end
-        dock.vm.network "private_network", ip: "192.168.10.14"
+        dock.vm.network "private_network", ip: "192.168.33.20"
         dock.vm.network "public_network"
         dock.vm.provision "shell", inline: <<-SCRIPT
         sudo apt-get update -y
