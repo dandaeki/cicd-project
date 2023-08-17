@@ -61,6 +61,25 @@ pipeline {
                 }
             }
         
-        }        
+        }
+        stage('Build and push Docker image') {
+        agent {
+            docker {
+                image 'docker:dind'
+                args '--privileged'
+                reuseNode true
+            }
+        }
+        steps {
+            script {
+                def customImage = docker.build("dandaeki/${GIT_REPO}:${TAG_VERSION}", ".")
+                withDockerRegistry([url: registryUrl, credentialsId: registryCredentialsId]) {
+                    customImage.push()
+                }
+            }
+        }
+        }
     }
 }
+     
+    
