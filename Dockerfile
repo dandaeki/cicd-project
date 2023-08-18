@@ -1,8 +1,8 @@
 FROM ubuntu:focal
 
 # 상호작용 무시
-ENV DEBIAN_FRONTEND = noninteractive
-ENV TAG_VERSION = 'v1.6.0'
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TAG_VERSION="v1.6.0"
 
 # 패키지를 업데이트하고 필요한 패키지를 설치합니다.
 RUN apt-get update -y && \
