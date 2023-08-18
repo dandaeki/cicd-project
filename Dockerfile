@@ -2,6 +2,7 @@ FROM ubuntu:focal
 
 # 상호작용 무시
 ENV DEBIAN_FRONTEND=noninteractive
+ENV TAG_VERSION= v1.5.0
 
 # 패키지를 업데이트하고 필요한 패키지를 설치합니다.
 RUN apt-get update -y && \
@@ -21,5 +22,5 @@ CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
 # 소스 코드를 클론합니다.
 RUN rm -rf /opt/tomcat/webapps && mkdir /opt/tomcat/webapps/
-RUN wget -P /opt/tomcat/webapps/ https://github.com/dandaeki/cicd-project/releases/download/v1.4.0/cicd-project-v1.4.0.war
+RUN wget -P /opt/tomcat/webapps/ https://github.com/dandaeki/cicd-project/releases/download/${TAG_VERSION}/cicd-project-${TAG_VERSION}.war
 # RUN git clone https://github.com/ehszl409/MZ-personal-project-server.git /opt/tomcat/webapps/
