@@ -71,6 +71,16 @@ pipeline {
 
                 }
             }
+        }
+        stage('docker image push') {
+            steps {
+                script{
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
+                        def img = docker.image("dandaeki/tomcat")
+                        img.push('0.1')
+                    }
+                }
+            }
         }    
     }
 }
