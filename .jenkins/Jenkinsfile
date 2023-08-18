@@ -1,5 +1,5 @@
 pipeline {
-
+    agent any
     environment {
         GC = credentials('github-cicd-project') //생성하세여
         GIT_REPO = 'cicd-project'
