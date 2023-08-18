@@ -92,6 +92,7 @@ pipeline {
                     withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://kube-controller:6443'])
                     { 
                         sh './kubectl config use-context kubernetes-admin@kubernetes'
+                        sh './kubectl get nodes'
                 
                     }
                 }
