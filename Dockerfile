@@ -21,5 +21,5 @@ CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
 # 소스 코드를 클론합니다.
 RUN rm -rf /opt/tomcat/webapps && mkdir /opt/tomcat/webapps/
-RUN wget -P /opt/tomcat/webapps/ https://github.com/dandaeki/cicd-project/releases/download/v1.0.0/cicd-project-v1.0.0.war
+RUN wget -P /opt/tomcat/webapps/ https://github.com/dandaeki/cicd-project/releases/download/v1.0.0/cicd-project-v1.1.0.war
 # RUN git clone https://github.com/ehszl409/MZ-personal-project-server.git /opt/tomcat/webapps/
