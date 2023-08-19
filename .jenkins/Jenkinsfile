@@ -79,6 +79,7 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
                         def img = docker.image("dandaeki/tomcat:${TAG_VERSION}")
                         img.push("${TAG_VERSION}")
+                        img.push('latest')
                     }
                 }
             }
@@ -94,8 +95,7 @@ pipeline {
                     { 
                         sh './kubectl config use-context kubernetes-admin@kubernetes'
                         sh './kubectl get nodes'
-                        sh './kubectl apply -f '
-                
+                        sh './kubectl get pods'
                     }
                 }
             }
