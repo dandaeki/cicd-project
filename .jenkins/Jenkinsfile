@@ -99,6 +99,10 @@ pipeline {
                     }
                 }
             }
-        }                
+        }
+        stage('Kubernetes deploy') {
+        kubernetesDeploy configs: "deploy.yaml", kubeconfigId: 'Kuberconfig'
+        sh "/usr/local/bin/kubectl --kubeconfig=/u01/kube-config.yaml rollout restart deployment/test-deployment "
+    }                
     }
 }
