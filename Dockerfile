@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:17-slim
 
 # 패키지를 업데이트하고 필요한 패키지를 설치합니다.
 RUN apt-get update -y && \
