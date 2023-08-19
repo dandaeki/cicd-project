@@ -92,8 +92,8 @@ pipeline {
                     // sh './kubectl version --client'
                     // sh './kubectl --kubeconfig=$KUBE_CONFIG apply -f /vagrant/kuber-yaml/test1.yaml'
                     withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://kube-controller:6443']){
-                        sh 'sudo mkdir /yamlRepo/'
-                        sh 'git clone https://github.com/dandaeki/yamlrepo.git '
+                        sh 'mkdir yamlRepo'
+                        sh 'cd yamlRepo && git clone https://github.com/dandaeki/yamlrepo.git'
                         sh './kubectl apply -f deploy.yaml'
                         sh 'rm -rf /yamlRepo'
 
