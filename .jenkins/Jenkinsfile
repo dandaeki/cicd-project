@@ -96,6 +96,7 @@ pipeline {
                         sh './kubectl config use-context kubernetes-admin@kubernetes'
                         sh './kubectl get nodes'
                         sh './kubectl get pods'
+                        sh './kubectl apply /vagrant/deploy.yaml'
                     }
                 }
             }
