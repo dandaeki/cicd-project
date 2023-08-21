@@ -40,21 +40,8 @@ Vagrant.configure("2") do |config|
             vb.memory = 4096
         end
         dockerop.vm.network "private_network", ip: "192.168.10.14"
-        dockerop.vm.network "public_network"
-        dockerop.vm.provision "shell", inline: <<-SCRIPT
-        sudo apt-get update -y
-          sudo apt-get install -y ca-certificates curl gnupg
-          sudo install -m 0755 -d /etc/apt/keyrings
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-          sudo chmod a+r /etc/apt/keyrings/docker.gpg
-          echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-           "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-          sudo apt-get update 
-          sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-          sudo usermod -a -G docker vagrant
-          docker login -u dandaeki --password-stdin < /vagrant/env/docker_token
-        SCRIPT
-    end
+    end  
+
 
     config.vm.define "jenkins" do |jenkins|
         jenkins.vm.hostname = "jenkins-server"
@@ -65,6 +52,7 @@ Vagrant.configure("2") do |config|
         end
         jenkins.vm.network "private_network", ip: "192.168.33.10"
     end
+
 
     config.vm.define "dock" do |dock|
         dock.vm.hostname = "docker-registry"
