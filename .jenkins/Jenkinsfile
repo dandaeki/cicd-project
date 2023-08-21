@@ -104,8 +104,8 @@ pipeline {
     //                     sh './kubectl get pods'
     //                 }
     //             }
-            }
-        }
+        //     }
+        // }
         stage('소나 큐브로 품질 테스트 진행') {
             steps {
                 script {
@@ -125,5 +125,4 @@ pipeline {
                 }
             }        
         }            
-    }
 }
